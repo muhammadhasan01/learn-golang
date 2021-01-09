@@ -1,7 +1,6 @@
 package migrations
 
 import (
-	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"hasan.com/go-bank-backend/helpers"
 	"hasan.com/go-bank-backend/interfaces"
 )
