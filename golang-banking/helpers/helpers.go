@@ -1,9 +1,12 @@
 package helpers
 
 import (
+	"regexp"
+
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"golang.org/x/crypto/bcrypt"
+	"hasan.com/go-bank-backend/interfaces"
 )
 
 // HandleErr is a function to handle error, it will panic an error message
@@ -27,4 +30,28 @@ func ConnectDB() *gorm.DB {
 	db, err := gorm.Open("postgres", dsn)
 	HandleErr(err)
 	return db
+}
+
+// Validation is a function to validate values such as username and email
+func Validation(values []interfaces.Validation) bool {
+	username := regexp.MustCompile("^([A-Za-z0-9]{5,})+$")
+	email := regexp.MustCompile("^[A-Za-z0-9]+[@]+[A-Za-z0-9]+[.]+[A-Za-z]+$")
+
+	for i := 0; i < len(values); i++ {
+		switch values[i].Valid {
+		case "username":
+			if !username.MatchString(values[i].Value) {
+				return false
+			}
+		case "email":
+			if !email.MatchString(values[i].Value) {
+				return false
+			}
+		case "password":
+			if len(values[i].Value) < 5 {
+				return false
+			}
+		}
+	}
+	return true
 }
