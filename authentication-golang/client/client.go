@@ -5,7 +5,6 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"time"
 
 	jwt "github.com/dgrijalva/jwt-go"
 )
@@ -40,7 +39,6 @@ func GenerateJWT() (string, error) {
 
 	claims["authorized"] = true
 	claims["client"] = "Elliot Forbes"
-	claims["exp"] = time.Now().Add(time.Minute * 30).Unix()
 
 	tokenString, err := token.SignedString(mySigningKey)
 
