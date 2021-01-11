@@ -6,6 +6,7 @@ import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"golang.org/x/crypto/bcrypt"
+	"hasan.com/go-bank-backend/interfaces"
 )
 
 // HandleErr is a function to handle error, it will panic an error message
